@@ -12,3 +12,18 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Availibility {
+  IN_STORE
+  ONLINE
+}
+
+model Product {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  price     Float
+  sale      Boolean  @default(false)
+  availibilty Availibility
+}
