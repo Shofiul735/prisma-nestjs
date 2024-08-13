@@ -19,11 +19,20 @@ enum Availibility {
 }
 
 model Product {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  price     Float
-  sale      Boolean  @default(false)
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  price       Float
+  sale        Boolean      @default(false)
   availibilty Availibility
+  tags        Tag[]
+}
+
+model Tag {
+  id          Int     @id @default(autoincrement())
+  title       String  @unique @db.VarChar(20)
+  description String  @db.VarChar(100)
+  product     Product @relation(fields: [productId], references: [id])
+  productId   Int
 }
